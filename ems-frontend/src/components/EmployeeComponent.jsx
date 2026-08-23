@@ -1,26 +1,48 @@
-import { useState } from 'react'
-import { addEmployee } from '../services/EmployeeService'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { addEmployee, getEmployee, updateEmployee } from '../services/EmployeeService'
+import { useNavigate, useParams } from 'react-router-dom'
+
 
 
 const EmloyeeComponent = () => {
-
+//Hooks
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const navigate = useNavigate()
     const [errors, setErrors]=useState({firstName:'',lastName:'',email:''})
+    const {id} = useParams()
 
+useEffect(()=>{
+  if(id){
+    getEmployee(id).then((response)=>{
+      setFirstName(response.data.firstName)
+      setLastName(response.data.lastName)
+      setEmail(response.data.email)
+    }).catch(error =>{console.log(error)})
+  }
+},[id])
+//End of hooks
 
-
+//Functions
     function saveEmployee(e){
       e.preventDefault();
 
         if(validateForm()){
-          const employee = {firstName,lastName,email}
+            const employee = {firstName,lastName,email}
+            if(id){
+                updateEmployee(id,employee).then((response)=>{
+                  console.log(response.data)
+                  navigate('/employees')
+                }).catch(error => {console.error(error)});
+                 
+            }
+          else{
+            addEmployee(employee).then((response) => {console.log(response.data)
+              navigate('/employees') 
+            })
       
-      addEmployee(employee).then((response) => {console.log(response.data)})
-      navigate('/employees') 
+          }
         }
     }
 
@@ -50,11 +72,18 @@ setErrors(errorsCopy)
 return valid;
   }
 
-
+function pageTitle(){
+if(id){
+  return <h2 className='text-center'>Update Employee</h2>
+}else{
+  return <h2 className='text-center'>Add Employee</h2>
+}
+}
+//End of functions
   return (
     <div className='container'>
       <br />
-<h2 className='text-center'>Add Employee</h2>
+  {pageTitle()}
 <div className='row'>
     <div className='card col-md-6 offset-md-3'>
     <div className='card-body'>

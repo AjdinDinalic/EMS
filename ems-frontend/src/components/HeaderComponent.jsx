@@ -12,13 +12,13 @@ const HeaderComponent = () => {
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a className="navbar-brand" href="#">Employee Management System</a>
+      <h3 className="navbar-brand">Employee Management System</h3>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
+          <a className="nav-link active" aria-current="page" href="/employees">Home</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link active" href="#">Employee list</a>
+          <a className="nav-link active" href="/employees">Employee list</a>
         </li>
       </ul>
       <form className="d-flex" role="search">

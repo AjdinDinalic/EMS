@@ -7,3 +7,9 @@ export const listEmployees = () =>
 
 export const addEmployee = (employee) =>
     axios.post(restApiBaseUrl,employee)
+
+export const getEmployee = (employeeId) =>
+    axios.get(restApiBaseUrl+'/'+employeeId)
+
+export const updateEmployee = (employeeId,employee)=>
+    axios.put(restApiBaseUrl+'/'+ employeeId,employee)
