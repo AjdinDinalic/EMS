@@ -13,3 +13,6 @@ export const getEmployee = (employeeId) =>
 
 export const updateEmployee = (employeeId,employee)=>
     axios.put(restApiBaseUrl+'/'+ employeeId,employee)
+
+export const deleteEmployee = (employeeId) => 
+    axios.delete(restApiBaseUrl+'/'+employeeId)
